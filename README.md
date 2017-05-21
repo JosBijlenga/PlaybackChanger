@@ -9,6 +9,9 @@ Install Playback changer by going to packages and selecting the latest version. 
 ## Device state
 All devices have a state. All states, except for 'Ignored', are explained [here][msdn]. 'Ignored' is only application specific, whereras the others are machine specific and can be modified outside Playback changer.
 
+## Foud a bug?
+Please report by creating an issue and describing the issue as detailed as possible.
+
 License
 ----
 MIT
