@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Playback Changer", "Playback_Changer\Playback Changer.csproj", "{C8B9C5BA-DF24-438A-BD38-01F128B5E109}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaybackChanger_Installer", "PlaybackChanger_Installer\PlaybackChanger_Installer.csproj", "{261B457E-0A7F-43BB-A025-01261292F7E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlaybackChanger_Uninstaller", "PlaybackChanger_Uninstaller\PlaybackChanger_Uninstaller.csproj", "{45F6EC67-F0BE-4D01-9267-232B6B7777CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8B9C5BA-DF24-438A-BD38-01F128B5E109}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B9C5BA-DF24-438A-BD38-01F128B5E109}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B9C5BA-DF24-438A-BD38-01F128B5E109}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B9C5BA-DF24-438A-BD38-01F128B5E109}.Release|Any CPU.Build.0 = Release|Any CPU
+		{261B457E-0A7F-43BB-A025-01261292F7E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{261B457E-0A7F-43BB-A025-01261292F7E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{261B457E-0A7F-43BB-A025-01261292F7E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{261B457E-0A7F-43BB-A025-01261292F7E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45F6EC67-F0BE-4D01-9267-232B6B7777CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45F6EC67-F0BE-4D01-9267-232B6B7777CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45F6EC67-F0BE-4D01-9267-232B6B7777CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45F6EC67-F0BE-4D01-9267-232B6B7777CA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
