@@ -64,21 +64,21 @@ namespace Playback_Changer.Forms
             switch (TaskbarHelper.Taskbar.Position)
             {
                 case TaskbarPosition.Left:
-                    x = taskbar.Bounds.X + taskbar.Bounds.Width + Offset;
-                    y = taskbar.Bounds.Height - (this.Size.Height);
+                    x = Screen.PrimaryScreen.WorkingArea.Left + Offset;
+                    y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Size.Height;
                     break;
                 case TaskbarPosition.Right:
-                    x = taskbar.Bounds.X - this.Size.Width - Offset;
-                    y = taskbar.Bounds.Height - (this.Size.Height);
+                    x = Screen.PrimaryScreen.WorkingArea.Right - this.Size.Width - Offset;
+                    y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Size.Height;
                     break;
                 case TaskbarPosition.Top:
-                    x = taskbar.Bounds.Width - (this.Size.Width);
-                    y = taskbar.Bounds.Height + Offset;
+                    x = Screen.PrimaryScreen.WorkingArea.Right - this.Size.Width;
+                    y = Screen.PrimaryScreen.WorkingArea.Top + Offset;
                     break;
                 case TaskbarPosition.Bottom:
                 default:
-                    x = taskbar.Bounds.Width - (this.Size.Width);
-                    y = taskbar.Bounds.Y - (this.Size.Height + Offset);
+                    x = Screen.PrimaryScreen.WorkingArea.Right - this.Size.Width;
+                    y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Size.Height - Offset;
                     break;
             }
             return new Point(x, y);

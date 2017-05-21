@@ -16,7 +16,7 @@ namespace PlaybackChanger_Installer
             _name = "Playback Changer";
             _regName = "PlaybackChanger";
             _publisher = "Jos Bijlenga";
-            _version = new Version(1, 0, 0, 1); // Major, Minor, Build, Revision
+            _version = new Version(1, 0, 0, 2); // Major, Minor, Build, Revision
             _uid = "{TYORHV-5Q4HZ0-CYW6EJ-6XHL3I-IDT7C5}";
         }
 
