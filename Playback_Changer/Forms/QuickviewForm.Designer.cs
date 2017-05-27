@@ -161,6 +161,7 @@
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Playback Changer";
+            this.TopMost = true;
             this.Activated += new System.EventHandler(this.View_Activated);
             this.Deactivate += new System.EventHandler(this.View_Deactivate);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.View_FormClosing);

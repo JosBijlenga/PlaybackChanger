@@ -57,10 +57,9 @@ namespace Playback_Changer.Helpers
                 {
                     activedEvent = new ActivatedEventArgs();
                     Activated?.Invoke(activedEvent);
+                    // Processed the message so return nonzero value to prevent passing value to the rest of the hook chain.
+                    return IntPtr.Add(IntPtr.Zero, 1);
                 }
-
-                //if ((Keys)vkCode != Keys.LMenu)
-                //    Console.WriteLine((Keys)vkCode);
             }
             return CallNextHookEx(_hookID, nCode, wParam, lParam);
         }
