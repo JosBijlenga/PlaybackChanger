@@ -110,12 +110,24 @@ namespace Playback_Changer
             Program.Quit();
         }
 
-        private void ContextMenuStripOpen_Click(object sender, EventArgs e)
+        private void ShowWindow()
         {
             if (!SettingsForm.Visible)
+            {
+                _view.WindowState = FormWindowState.Minimized;
                 _view.Show();
+                _view.WindowState = FormWindowState.Normal;
+                _view.Activate();
+            }
             else
+            {
                 SettingsForm.Show();
+            }
+        }
+
+        private void ContextMenuStripOpen_Click(object sender, EventArgs e)
+        {
+            ShowWindow();
         }
 
         private void ContextMenuStripSettings_Click(object sender, EventArgs e)
@@ -137,12 +149,7 @@ namespace Playback_Changer
         private void _notifyIcon_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
-            {
-                if (!SettingsForm.Visible)
-                    _view.Show();
-                else
-                    SettingsForm.Show();
-            }
+                ShowWindow();
         }
 
         private void _keyboardHook_HotkeyPressed(KeyboardHook.HotkeyEventArgs e)
@@ -152,10 +159,7 @@ namespace Playback_Changer
 
         private void _keyboardHook_Activated(KeyboardHook.ActivatedEventArgs e)
         {
-            if (!SettingsForm.Visible)
-                _view.Show();
-            else
-                SettingsForm.Show();
+            ShowWindow();
         }
     }
 }

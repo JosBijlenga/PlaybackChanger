@@ -17,7 +17,9 @@ namespace Playback_Changer.Forms
         private Color _deviceControlBackColor;
         private Color _deviceControlHoverColor;
 
-        private const int Offset = 12;
+        private const int OFFSET = 12;
+        private const int HEIGHT = 280;
+        private const int WIDTH = 360;
 
         private PlaybackChangerContext _context;
 
@@ -64,21 +66,21 @@ namespace Playback_Changer.Forms
             switch (TaskbarHelper.Taskbar.Position)
             {
                 case TaskbarPosition.Left:
-                    x = Screen.PrimaryScreen.WorkingArea.Left + Offset;
-                    y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Size.Height;
+                    x = Screen.PrimaryScreen.WorkingArea.Left + OFFSET;
+                    y = Screen.PrimaryScreen.WorkingArea.Bottom - HEIGHT;
                     break;
                 case TaskbarPosition.Right:
-                    x = Screen.PrimaryScreen.WorkingArea.Right - this.Size.Width - Offset;
-                    y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Size.Height;
+                    x = Screen.PrimaryScreen.WorkingArea.Right - WIDTH - OFFSET;
+                    y = Screen.PrimaryScreen.WorkingArea.Bottom - Height;
                     break;
                 case TaskbarPosition.Top:
-                    x = Screen.PrimaryScreen.WorkingArea.Right - this.Size.Width;
-                    y = Screen.PrimaryScreen.WorkingArea.Top + Offset;
+                    x = Screen.PrimaryScreen.WorkingArea.Right - WIDTH;
+                    y = Screen.PrimaryScreen.WorkingArea.Top + OFFSET;
                     break;
                 case TaskbarPosition.Bottom:
                 default:
-                    x = Screen.PrimaryScreen.WorkingArea.Right - this.Size.Width;
-                    y = Screen.PrimaryScreen.WorkingArea.Bottom - this.Size.Height - Offset;
+                    x = Screen.PrimaryScreen.WorkingArea.Right - WIDTH;
+                    y = Screen.PrimaryScreen.WorkingArea.Bottom - HEIGHT - OFFSET;
                     break;
             }
             return new Point(x, y);
@@ -150,11 +152,21 @@ namespace Playback_Changer.Forms
         /// </summary>
         private void View_Activated(object sender, EventArgs e)
         {
-            _context.DeviceController.RefreshDevices();
-            this.Activate(); // Makes sure deactivated will always be triggered
+            Timer t = new Timer()
+            {
+                Interval = 250
+            };
+            t.Tick += delegate
+            {
+                t.Stop();
+                t.Dispose();
+
+                _context.DeviceController.RefreshDevices();
+                PopulateDevices(_context.DeviceController.Devices);
+            };
             this.Location = SetQuickviewLocation();
             SetColors();
-            PopulateDevices(_context.DeviceController.Devices);
+            t.Start();
         }
 
         /// <summary>
