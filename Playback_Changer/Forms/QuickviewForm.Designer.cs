@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickviewForm));
             this.borderPanelMain = new PlaybackChanger_Installer.Controls.BorderPanel();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.linkLabelRefresh = new System.Windows.Forms.LinkLabel();
             this.labelDevices = new System.Windows.Forms.Label();
@@ -47,6 +49,7 @@
             this.borderPanelMain.BorderColor = System.Drawing.Color.Red;
             this.borderPanelMain.BottomBorder = false;
             this.borderPanelMain.BottomBorderWidth = 1;
+            this.borderPanelMain.Controls.Add(this.buttonUpdate);
             this.borderPanelMain.Controls.Add(this.buttonSettings);
             this.borderPanelMain.Controls.Add(this.linkLabelRefresh);
             this.borderPanelMain.Controls.Add(this.labelDevices);
@@ -63,9 +66,21 @@
             this.borderPanelMain.TopBorder = false;
             this.borderPanelMain.TopBorderWidth = 1;
             // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonUpdate.BackgroundImage")));
+            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonUpdate.FlatAppearance.BorderSize = 0;
+            this.buttonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUpdate.Location = new System.Drawing.Point(285, 1);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(32, 32);
+            this.buttonUpdate.TabIndex = 5;
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            // 
             // buttonSettings
             // 
-            this.buttonSettings.BackgroundImage = global::Playback_Changer.Properties.Resources.settings_small;
+            this.buttonSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonSettings.BackgroundImage")));
             this.buttonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonSettings.FlatAppearance.BorderSize = 0;
             this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -184,5 +199,6 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitPlaybackChangerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.Button buttonUpdate;
     }
 }

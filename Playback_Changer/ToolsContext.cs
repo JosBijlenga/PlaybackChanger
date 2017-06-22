@@ -5,6 +5,7 @@ using Playback_Changer.Controllers;
 using Playback_Changer.Forms;
 using Playback_Changer.Helpers;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Playback_Changer
 {
@@ -22,9 +23,18 @@ namespace Playback_Changer
 
         public DeviceController DeviceController;
 
+        private void ForDebugging()
+        {
+            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
+            string version = fvi.FileVersion;
+        }
+
         public PlaybackChangerContext(bool showQuickview)
         {
             InitializeComponents();
+
+            ForDebugging();
 
             TrayIcon.Visible = true;
 

@@ -184,6 +184,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\update_install.png" />
+    <None Include="Resources\settings_small.png" />
+    <None Include="Resources\download_small.png" />
     <None Include="Resources\popover1.png" />
     <None Include="icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -200,7 +203,6 @@
     <None Include="Resources\remove.png" />
     <None Include="Resources\popover.png" />
     <None Include="Resources\add.png" />
-    <None Include="Resources\settings_small.png" />
     <None Include="Resources\icon.ico" />
   </ItemGroup>
   <ItemGroup>
