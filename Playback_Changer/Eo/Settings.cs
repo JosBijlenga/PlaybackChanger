@@ -135,7 +135,28 @@ namespace Playback_Changer.Eo
             }
         }
 
+        private bool _checkUpdate = true;
+        public bool CheckUpdate
+        {
+            get
+            {
+                return _checkUpdate;
+            }
+            set
+            {
+                bool changed = (_checkUpdate != value);
+                _checkUpdate = value;
 
+                if (changed)
+                {
+                    OnRaiseSettingChanged(new SettingChangedEventArgs(
+                        Enums.Settings.CheckUpdate,
+                        value
+                    ));
+                }
+            }
+        }
+        
 
         public delegate void SettingChangedEventHandler(object sender, SettingChangedEventArgs e);
         public event SettingChangedEventHandler SettingChanged;

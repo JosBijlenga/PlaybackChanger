@@ -1,10 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Playback_Changer.Controllers;
 using Playback_Changer.Enums;
 using Playback_Changer.Helpers;
+using Playback_Changer.Eo;
+using System.ComponentModel;
+using System.IO;
 
 namespace Playback_Changer.Forms
 {
@@ -42,6 +43,8 @@ namespace Playback_Changer.Forms
         public QuickviewForm(PlaybackChangerContext context)
         {
             InitializeComponent();
+
+            buttonUpdate.Tag = new VersionTag(null, string.Empty, Enums.Constants.UpdateType.check);
 
             _context = context;
 
@@ -144,6 +147,110 @@ namespace Playback_Changer.Forms
             return changed;
         }
 
+        // Delegate required to make access to ShowUpdateDownload cross-thread supported
+        delegate void ShowUpdateDownloadDelegate(Eo.VersionInfo versionInfo);
+        /// <summary>
+        /// Notify the user that an update is available for download.
+        /// </summary>
+        /// <param name="versionInfo">Information about the version that is available for download.</param>
+        public void ShowUpdateDownload(VersionInfo versionInfo)
+        {
+            if (this.buttonUpdate.InvokeRequired)
+            {
+                var d = new ShowUpdateDownloadDelegate(ShowUpdateDownload);
+                this.Invoke(d, new object[] { versionInfo });
+            }
+            else
+            {
+                buttonUpdate.BackgroundImage = Properties.Resources.download_install;
+                buttonUpdate.Tag = new VersionTag(versionInfo.Version, versionInfo.Url, Enums.Constants.UpdateType.download);
+                toolTip.SetToolTip(buttonUpdate, string.Format("New version {0} is available for download", versionInfo.Version));
+                buttonUpdate.Visible = true;
+                pictureBoxUpdate.Visible = false;
+            }
+        }
+
+        delegate void ShowNoUpdateDownloadDelegate();
+        public void ShowNoUpdate()
+        {
+            if (this.buttonUpdate.InvokeRequired)
+            {
+                var d = new ShowNoUpdateDownloadDelegate(ShowNoUpdate);
+                this.Invoke(d, null);
+            }
+            else
+            {
+                pictureBoxUpdate.Image = Properties.Resources.frown;
+                toolTip.SetToolTip(pictureBoxUpdate, "No updates available");
+                // Hide frown after 10 seconds
+                Timer t = new Timer()
+                {
+                    Interval = 1000 * 10 // 10 seconds
+                };
+                t.Tick += delegate
+                {
+                    pictureBoxUpdate.Visible = false;
+                    buttonUpdate.Visible = true;
+                    t.Stop();
+                    t.Dispose();
+                };
+                t.Start();
+            }
+        }
+
+        // Delegate required to make access to ShowUpdateInstall cross-thread supported
+        delegate void ShowUpdateInstallDelegate(VersionInfo versionInfo);
+        /// <summary>
+        /// Notify the user that a downloaded update is ready to be installed.
+        /// </summary>
+        /// <param name="version">The version ready to be installed.</param>
+        public void ShowUpdateInstall(VersionInfo versionInfo)
+        {
+            if (this.buttonUpdate.InvokeRequired)
+            {
+                var d = new ShowUpdateInstallDelegate(ShowUpdateInstall);
+                this.Invoke(d, new object[] { versionInfo });
+            }
+            else
+            {
+                buttonUpdate.BackgroundImage = Properties.Resources.install_small;
+                buttonUpdate.Tag = new VersionTag(versionInfo.Version, versionInfo.Url, Enums.Constants.UpdateType.install);
+                toolTip.SetToolTip(buttonUpdate, string.Format("Downloaded version {0} is ready to be installed", versionInfo.Version));
+                buttonUpdate.Visible = true;
+                pictureBoxUpdate.Visible = false;
+            }
+        }
+
+        // Delegate required to make access to ShowWarning cross-thread supported
+        delegate void ShowWarningDelegate();
+        public void ShowWarning()
+        {
+            if (this.buttonUpdate.InvokeRequired)
+            {
+                var d = new ShowWarningDelegate(ShowWarning);
+                this.Invoke(d, null);
+            }
+            else
+            {
+                buttonUpdate.BackgroundImage = Properties.Resources.warning;
+                var tag = buttonUpdate.Tag as VersionTag;
+                if (tag.Tag.Equals(Enums.Constants.UpdateType.download))
+                {
+                    toolTip.SetToolTip(buttonUpdate, "Something went wrong while trying to download the update. Click to try again");
+                }
+                else if (tag.Tag.Equals(Enums.Constants.UpdateType.install))
+                {
+                    toolTip.SetToolTip(buttonUpdate, "Something went wrong while trying to install the update. Click to try again");
+                }
+                else
+                {
+                    toolTip.SetToolTip(buttonUpdate, "Something went wrong. Click to try again");
+                }
+                buttonUpdate.Visible = true;
+                pictureBoxUpdate.Visible = false;
+            }
+        }
+
         #region Events
 
         /// <summary>
@@ -226,6 +333,82 @@ namespace Playback_Changer.Forms
         {
             var pos = Cursor.Position;
             contextMenuStrip.Show(new Point(pos.X - contextMenuStrip.Width, pos.Y));
+        }
+
+        /// <summary>
+        /// User clicked the download/install button.
+        /// </summary>
+        private void ButtonUpdate_Click(object sender, EventArgs e)
+        {
+            var tag = buttonUpdate.Tag as VersionTag;
+            switch (tag.Tag)
+            {
+                case Enums.Constants.UpdateType.download:
+                case Enums.Constants.UpdateType.downloadRetry:
+                    DownloadClicked(tag);
+                    break;
+                case Enums.Constants.UpdateType.install:
+                case Enums.Constants.UpdateType.installRetry:
+                    InstallClicked(tag);
+                    break;
+                case Enums.Constants.UpdateType.check:
+                    CheckClicked();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void CheckClicked()
+        {
+            pictureBoxUpdate.Visible = true;
+            buttonUpdate.Visible = false;
+            // check for updates.
+            _context.UpdateController.CheckForUpdate(true);
+        }
+
+        private void DownloadClicked(VersionTag tag)
+        {
+            toolTip.SetToolTip(pictureBoxUpdate, "Downloading");
+            pictureBoxUpdate.Image = Properties.Resources.Ring;
+            pictureBoxUpdate.Visible = true;
+            buttonUpdate.Visible = false;
+            // download the update.
+            _context.UpdateController.DownloadUpdate(tag);
+        }
+
+        private BackgroundWorker worker;
+        private void InstallClicked(VersionTag tag)
+        {
+            toolTip.SetToolTip(pictureBoxUpdate, "Installing");
+            pictureBoxUpdate.Image = Properties.Resources.Ring;
+            pictureBoxUpdate.Visible = true;
+            buttonUpdate.Visible = false;
+            // install the update.
+            worker = new BackgroundWorker();
+            worker.RunWorkerCompleted += delegate
+            {
+                pictureBoxUpdate.Visible = false;
+
+                var installLocation = PlaybackChanger_Installer.RegHelper.GetRegInstallPath();
+                if (!Directory.Exists(installLocation))
+                    return;
+                string updater = Path.Combine(installLocation, "PlaybackChanger_Installer.exe");
+                if (!File.Exists(updater))
+                    return;
+
+                System.Diagnostics.Process.Start(updater);
+                MayClose = true;
+                this.Close();
+            };
+            try
+            {
+                _context.UpdateController.InstallUpdate(tag, worker);
+            }
+            finally
+            {
+                worker.Dispose();
+            }
         }
 
         #endregion Events

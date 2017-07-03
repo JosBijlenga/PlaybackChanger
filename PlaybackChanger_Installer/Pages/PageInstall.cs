@@ -64,7 +64,8 @@ namespace PlaybackChanger_Installer.Pages
 
         private bool InstallPackageExists()
         {
-            var packagePath = Path.Combine(Environment.CurrentDirectory, "Package.7z");
+            var execLocation = System.Reflection.Assembly.GetExecutingAssembly().Location;
+            var packagePath = Path.Combine(Path.GetDirectoryName(execLocation), "Package.7z");
             return File.Exists(packagePath);
         }
 

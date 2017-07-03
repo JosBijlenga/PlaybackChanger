@@ -29,7 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuickviewForm));
             this.borderPanelMain = new PlaybackChanger_Installer.Controls.BorderPanel();
+            this.pictureBoxUpdate = new System.Windows.Forms.PictureBox();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             this.buttonSettings = new System.Windows.Forms.Button();
             this.linkLabelRefresh = new System.Windows.Forms.LinkLabel();
             this.labelDevices = new System.Windows.Forms.Label();
@@ -38,7 +41,9 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator = new System.Windows.Forms.ToolStripSeparator();
             this.exitPlaybackChangerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.borderPanelMain.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUpdate)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -47,6 +52,8 @@
             this.borderPanelMain.BorderColor = System.Drawing.Color.Red;
             this.borderPanelMain.BottomBorder = false;
             this.borderPanelMain.BottomBorderWidth = 1;
+            this.borderPanelMain.Controls.Add(this.pictureBoxUpdate);
+            this.borderPanelMain.Controls.Add(this.buttonUpdate);
             this.borderPanelMain.Controls.Add(this.buttonSettings);
             this.borderPanelMain.Controls.Add(this.linkLabelRefresh);
             this.borderPanelMain.Controls.Add(this.labelDevices);
@@ -63,9 +70,36 @@
             this.borderPanelMain.TopBorder = false;
             this.borderPanelMain.TopBorderWidth = 1;
             // 
+            // pictureBoxUpdateSpinner
+            // 
+            this.pictureBoxUpdate.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBoxUpdate.Image = ((System.Drawing.Image)(resources.GetObject("pictureBoxUpdateSpinner.Image")));
+            this.pictureBoxUpdate.Location = new System.Drawing.Point(285, 1);
+            this.pictureBoxUpdate.Name = "pictureBoxUpdateSpinner";
+            this.pictureBoxUpdate.Size = new System.Drawing.Size(32, 32);
+            this.pictureBoxUpdate.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pictureBoxUpdate.TabIndex = 0;
+            this.pictureBoxUpdate.TabStop = false;
+            this.pictureBoxUpdate.Visible = false;
+            // 
+            // buttonUpdate
+            // 
+            this.buttonUpdate.BackgroundImage = global::Playback_Changer.Properties.Resources.UpdateCheck;
+            this.buttonUpdate.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.buttonUpdate.FlatAppearance.BorderSize = 0;
+            this.buttonUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonUpdate.Location = new System.Drawing.Point(285, 1);
+            this.buttonUpdate.Name = "buttonUpdate";
+            this.buttonUpdate.Size = new System.Drawing.Size(32, 32);
+            this.buttonUpdate.TabIndex = 5;
+            this.buttonUpdate.Tag = "";
+            this.toolTip.SetToolTip(this.buttonUpdate, "Check for updates");
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.ButtonUpdate_Click);
+            // 
             // buttonSettings
             // 
-            this.buttonSettings.BackgroundImage = global::Playback_Changer.Properties.Resources.settings_small;
+            this.buttonSettings.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("buttonSettings.BackgroundImage")));
             this.buttonSettings.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.buttonSettings.FlatAppearance.BorderSize = 0;
             this.buttonSettings.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
@@ -73,6 +107,7 @@
             this.buttonSettings.Name = "buttonSettings";
             this.buttonSettings.Size = new System.Drawing.Size(32, 32);
             this.buttonSettings.TabIndex = 4;
+            this.toolTip.SetToolTip(this.buttonSettings, "Settings");
             this.buttonSettings.UseVisualStyleBackColor = true;
             this.buttonSettings.Click += new System.EventHandler(this.ButtonSettings_Click);
             // 
@@ -168,6 +203,7 @@
             this.Move += new System.EventHandler(this.View_Move);
             this.borderPanelMain.ResumeLayout(false);
             this.borderPanelMain.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxUpdate)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -184,5 +220,8 @@
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exitPlaybackChangerToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator;
+        private System.Windows.Forms.Button buttonUpdate;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.PictureBox pictureBoxUpdate;
     }
 }

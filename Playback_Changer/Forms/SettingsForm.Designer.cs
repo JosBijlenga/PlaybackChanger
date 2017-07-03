@@ -34,6 +34,8 @@
             this.borderPanelDevicesInner = new PlaybackChanger_Installer.Controls.BorderPanel();
             this.borderPanelDevicesList = new PlaybackChanger_Installer.Controls.BorderPanel();
             this.borderPanelSettings = new PlaybackChanger_Installer.Controls.BorderPanel();
+            this.labelCheckUpdates = new System.Windows.Forms.Label();
+            this.bmToggleSwitchCheckUpdates = new bmControlLibrary.bmToggleSwitch();
             this.flatButtonUnbindActivationKey = new PlaybackChanger_Installer.Controls.FlatButton();
             this.label1 = new System.Windows.Forms.Label();
             this.flatButtonActivationKey = new PlaybackChanger_Installer.Controls.FlatButton();
@@ -153,6 +155,8 @@
             this.borderPanelSettings.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.borderPanelSettings.BottomBorder = false;
             this.borderPanelSettings.BottomBorderWidth = 1;
+            this.borderPanelSettings.Controls.Add(this.labelCheckUpdates);
+            this.borderPanelSettings.Controls.Add(this.bmToggleSwitchCheckUpdates);
             this.borderPanelSettings.Controls.Add(this.flatButtonUnbindActivationKey);
             this.borderPanelSettings.Controls.Add(this.label1);
             this.borderPanelSettings.Controls.Add(this.flatButtonActivationKey);
@@ -170,6 +174,28 @@
             this.borderPanelSettings.TabIndex = 1;
             this.borderPanelSettings.TopBorder = false;
             this.borderPanelSettings.TopBorderWidth = 1;
+            // 
+            // labelCheckUpdates
+            // 
+            this.labelCheckUpdates.AutoSize = true;
+            this.labelCheckUpdates.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCheckUpdates.Location = new System.Drawing.Point(15, 201);
+            this.labelCheckUpdates.Margin = new System.Windows.Forms.Padding(18, 18, 4, 0);
+            this.labelCheckUpdates.Name = "labelCheckUpdates";
+            this.labelCheckUpdates.Size = new System.Drawing.Size(134, 40);
+            this.labelCheckUpdates.TabIndex = 13;
+            this.labelCheckUpdates.Text = "Automatically check\r\nfor updates";
+            // 
+            // bmToggleSwitchCheckUpdates
+            // 
+            this.bmToggleSwitchCheckUpdates.ButtonColor = System.Drawing.Color.Empty;
+            this.bmToggleSwitchCheckUpdates.Location = new System.Drawing.Point(22, 243);
+            this.bmToggleSwitchCheckUpdates.Name = "bmToggleSwitchCheckUpdates";
+            this.bmToggleSwitchCheckUpdates.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bmToggleSwitchCheckUpdates.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bmToggleSwitchCheckUpdates.Size = new System.Drawing.Size(50, 19);
+            this.bmToggleSwitchCheckUpdates.TabIndex = 12;
+            this.bmToggleSwitchCheckUpdates.CheckedChanged += new bmControlLibrary.bmToggleSwitch.CheckedChangedDelegate(this.bmToggleSwitchCheckUpdates_CheckedChanged);
             // 
             // flatButtonUnbindActivationKey
             // 
@@ -668,5 +694,7 @@
         private bmControlLibrary.bmToggleSwitch bmToggleSwitchStartOnSystemStart;
         private System.Windows.Forms.Label label1;
         private PlaybackChanger_Installer.Controls.FlatButton flatButtonUnbindActivationKey;
+        private System.Windows.Forms.Label labelCheckUpdates;
+        private bmControlLibrary.bmToggleSwitch bmToggleSwitchCheckUpdates;
     }
 }

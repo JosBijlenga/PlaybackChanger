@@ -31,6 +31,7 @@ namespace Playback_Changer.Forms
         private void SettingsForm_Load(object sender, EventArgs e)
         {
             ControlHelper.SetToggleSwitchWithoutAnimation(bmToggleSwitchStartOnSystemStart, SettingsManager.Settings.StartOnSystemStart);
+            ControlHelper.SetToggleSwitchWithoutAnimation(bmToggleSwitchCheckUpdates, SettingsManager.Settings.CheckUpdate);
 
             flatButtonActivationKey.Text = SettingsManager.Settings.ActivateKey.ToString();
         }
@@ -101,6 +102,11 @@ namespace Playback_Changer.Forms
                 borderPanelDevicesList.VerticalScroll.Value = 0;
                 borderPanelDevicesList.ResumeLayout(true);
             }
+        }
+
+        private void bmToggleSwitchCheckUpdates_CheckedChanged(object sender, EventArgs e)
+        {
+            SettingsManager.Settings.CheckUpdate = bmToggleSwitchCheckUpdates.Checked;
         }
     }
 }

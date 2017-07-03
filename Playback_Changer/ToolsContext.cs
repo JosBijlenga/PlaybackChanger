@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Playback_Changer.Enums;
 using Playback_Changer.Controllers;
 using Playback_Changer.Forms;
 using Playback_Changer.Helpers;
-using System.Collections.Generic;
 
 namespace Playback_Changer
 {
@@ -13,6 +11,7 @@ namespace Playback_Changer
         private KeyboardHook _keyboardHook;
         private QuickviewForm _view;
         public SettingsForm SettingsForm;
+        private UpdateController _updateController;
 
         private NotifyIcon TrayIcon;
         private ContextMenuStrip TrayIconMenuStrip;
@@ -21,6 +20,10 @@ namespace Playback_Changer
         private ToolStripMenuItem ContextMenuStripClose;
 
         public DeviceController DeviceController;
+        public UpdateController UpdateController
+        {
+            get { return _updateController; }
+        }
 
         public PlaybackChangerContext(bool showQuickview)
         {
@@ -40,6 +43,26 @@ namespace Playback_Changer
             }
         }
 
+        private void UpdateController_UpdateAvailable(object sender, UpdateController.UpdateAvailableEventArgs e)
+        {
+            _view.ShowUpdateDownload(e.VersionInfo);
+        }
+
+        private void _updateController_InstallAvailable(object sender, UpdateController.InstallAvailableEventArgs e)
+        {
+            _view.ShowUpdateInstall(new Eo.VersionInfo(e.Version));
+        }
+
+        private void _updateController_UpdateFailure(object sender, UpdateController.UpdateFailureEventArgs e)
+        {
+            _view.ShowWarning();
+        }
+
+        private void _updateController_NoUpdateAvailable(object sender, UpdateController.NoUpdateAvailableEventArgs e)
+        {
+            _view.ShowNoUpdate();
+        }
+
         private void InitializeComponents()
         {
             DeviceController = new DeviceController();
@@ -54,6 +77,11 @@ namespace Playback_Changer
             ContextMenuStripSettings = new ToolStripMenuItem();
             ContextMenuStripClose = new ToolStripMenuItem();
             TrayIcon = new NotifyIcon();
+            _updateController = new UpdateController();
+            _updateController.UpdateAvailable += UpdateController_UpdateAvailable;
+            _updateController.InstallAvailable += _updateController_InstallAvailable;
+            _updateController.UpdateFailure += _updateController_UpdateFailure;
+            _updateController.NoUpdateAvailable += _updateController_NoUpdateAvailable;
 
             //
             // ContextMenuStripOpen
