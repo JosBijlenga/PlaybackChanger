@@ -133,13 +133,19 @@
   <data name="popover" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\popover1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="download_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="install_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\download_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="settings_small" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\settings_small.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="update_install" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="download_install" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\update_install.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Ring" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Ring.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

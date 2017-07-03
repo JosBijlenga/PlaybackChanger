@@ -73,9 +73,9 @@ namespace Playback_Changer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap download_small {
+        internal static System.Drawing.Bitmap download_install {
             get {
-                object obj = ResourceManager.GetObject("download_small", resourceCulture);
+                object obj = ResourceManager.GetObject("download_install", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -87,6 +87,16 @@ namespace Playback_Changer.Properties {
             get {
                 object obj = ResourceManager.GetObject("icon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap install_small {
+            get {
+                object obj = ResourceManager.GetObject("install_small", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         
@@ -113,6 +123,16 @@ namespace Playback_Changer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Ring {
+            get {
+                object obj = ResourceManager.GetObject("Ring", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap settings_small {
             get {
                 object obj = ResourceManager.GetObject("settings_small", resourceCulture);
@@ -132,9 +152,9 @@ namespace Playback_Changer.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap update_install {
+        internal static System.Drawing.Bitmap warning {
             get {
-                object obj = ResourceManager.GetObject("update_install", resourceCulture);
+                object obj = ResourceManager.GetObject("warning", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

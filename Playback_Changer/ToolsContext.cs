@@ -6,6 +6,7 @@ using Playback_Changer.Forms;
 using Playback_Changer.Helpers;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.ComponentModel;
 
 namespace Playback_Changer
 {
@@ -14,6 +15,7 @@ namespace Playback_Changer
         private KeyboardHook _keyboardHook;
         private QuickviewForm _view;
         public SettingsForm SettingsForm;
+        private UpdateController _updateController;
 
         private NotifyIcon TrayIcon;
         private ContextMenuStrip TrayIconMenuStrip;
@@ -22,19 +24,14 @@ namespace Playback_Changer
         private ToolStripMenuItem ContextMenuStripClose;
 
         public DeviceController DeviceController;
-
-        private void ForDebugging()
+        public UpdateController UpdateController
         {
-            System.Reflection.Assembly assembly = System.Reflection.Assembly.GetExecutingAssembly();
-            FileVersionInfo fvi = FileVersionInfo.GetVersionInfo(assembly.Location);
-            string version = fvi.FileVersion;
+            get { return _updateController; }
         }
 
         public PlaybackChangerContext(bool showQuickview)
         {
             InitializeComponents();
-
-            ForDebugging();
 
             TrayIcon.Visible = true;
 
@@ -48,6 +45,21 @@ namespace Playback_Changer
                 if (showQuickview)
                     _view.Show();
             }
+        }
+
+        private void UpdateController_UpdateAvailable(object sender, UpdateController.UpdateAvailableEventArgs e)
+        {
+            _view.ShowUpdateDownload(e.VersionInfo);
+        }
+
+        private void _updateController_InstallAvailable(object sender, UpdateController.InstallAvailableEventArgs e)
+        {
+            _view.ShowUpdateInstall(new Eo.VersionInfo(e.Version));
+        }
+
+        private void _updateController_UpdateFailure(object sender, UpdateController.UpdateFailureEventArgs e)
+        {
+            _view.ShowWarning();
         }
 
         private void InitializeComponents()
@@ -64,6 +76,10 @@ namespace Playback_Changer
             ContextMenuStripSettings = new ToolStripMenuItem();
             ContextMenuStripClose = new ToolStripMenuItem();
             TrayIcon = new NotifyIcon();
+            _updateController = new UpdateController();
+            _updateController.UpdateAvailable += UpdateController_UpdateAvailable;
+            _updateController.InstallAvailable += _updateController_InstallAvailable;
+            _updateController.UpdateFailure += _updateController_UpdateFailure;
 
             //
             // ContextMenuStripOpen
