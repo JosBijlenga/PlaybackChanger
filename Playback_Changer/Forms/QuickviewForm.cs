@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-using Playback_Changer.Controllers;
 using Playback_Changer.Enums;
 using Playback_Changer.Helpers;
 using Playback_Changer.Eo;

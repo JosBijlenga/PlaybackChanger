@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Playback_Changer.Enums
+﻿namespace Playback_Changer.Enums
 {
     public class Constants
     {

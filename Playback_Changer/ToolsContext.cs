@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Windows.Forms;
-using Playback_Changer.Enums;
 using Playback_Changer.Controllers;
 using Playback_Changer.Forms;
 using Playback_Changer.Helpers;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.ComponentModel;
 
 namespace Playback_Changer
 {
