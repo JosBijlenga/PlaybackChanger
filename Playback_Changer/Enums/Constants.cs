@@ -14,6 +14,7 @@ namespace Playback_Changer.Enums
             public const string install = "install";
             public const string downloadRetry = "downloadRetry";
             public const string installRetry = "installRetry";
+            public const string check = "check";
         }
     }
 }

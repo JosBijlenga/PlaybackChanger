@@ -81,6 +81,16 @@ namespace Playback_Changer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap frown {
+            get {
+                object obj = ResourceManager.GetObject("frown", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
         internal static System.Drawing.Icon icon {
@@ -146,6 +156,16 @@ namespace Playback_Changer.Properties {
         internal static string TrayIconBalloonText {
             get {
                 return ResourceManager.GetString("TrayIconBalloonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap UpdateCheck {
+            get {
+                object obj = ResourceManager.GetObject("UpdateCheck", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
         

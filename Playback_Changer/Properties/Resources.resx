@@ -148,4 +148,10 @@
   <data name="warning" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\warning.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="frown" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\frown.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="UpdateCheck" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\UpdateCheck.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

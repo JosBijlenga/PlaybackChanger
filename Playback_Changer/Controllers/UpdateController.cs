@@ -98,7 +98,7 @@ namespace Playback_Changer.Controllers
             DownloadUpdateAsync(tag);
         }
 
-        public void CheckForUpdate()
+        public void CheckForUpdate(bool fromUi = false)
         {
             // Already checking?
             if (_checkingUpdate)
@@ -118,7 +118,7 @@ namespace Playback_Changer.Controllers
             else
             {
                 // Fires async event UpdateAvailable
-                CheckLatestVersionAsync();
+                CheckLatestVersionAsync(fromUi);
             }
         }
 
@@ -167,13 +167,13 @@ namespace Playback_Changer.Controllers
         }
 
         private HttpWebRequest updateRequest;
-        private void CheckLatestVersionAsync()
+        private void CheckLatestVersionAsync(bool fromUi = false)
         {
             _checkingUpdate = true;
             try
             {
                 updateRequest = (HttpWebRequest)WebRequest.Create(LATEST_VERSION_URL);
-                updateRequest.BeginGetResponse(new AsyncCallback(FinishUpdateRequest), null);
+                updateRequest.BeginGetResponse(new AsyncCallback(FinishUpdateRequest), fromUi);
             }
             catch (Exception)
             {
@@ -183,14 +183,17 @@ namespace Playback_Changer.Controllers
 
         private void FinishUpdateRequest(IAsyncResult result)
         {
+            bool fromUi = false;
             try
             {
                 string data = string.Empty;
+                fromUi = (bool)result.AsyncState;
 
                 using (HttpWebResponse response = (HttpWebResponse)updateRequest.EndGetResponse(result))
                 using (Stream stream = response.GetResponseStream())
                 using (StreamReader reader = new StreamReader(stream))
                 {
+
                     data = reader.ReadToEnd();
                 }
 
@@ -211,15 +214,29 @@ namespace Playback_Changer.Controllers
                     {
                         OnRaiseUpdateAvailable(new UpdateAvailableEventArgs(new VersionInfo(retrievedVersion, items[1])));
                     }
+                    else
+                    {
+                        OnRaiseNoUpdateAvailable(new NoUpdateAvailableEventArgs());
+                    }
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    if (fromUi)
+                    {
+                        OnRaiseNoUpdateAvailable(new NoUpdateAvailableEventArgs());
+                    }
+                    Console.WriteLine(e);
                     // invalid version, ignore.
                 }
 
             }
             catch (Exception)
             {
+                if (fromUi)
+                {
+                    OnRaiseNoUpdateAvailable(new NoUpdateAvailableEventArgs());
+                }
+                //Console.WriteLine(xe);
                 // Exception won't occur after user interaction, yet, so no need to warn.
             }
             finally
@@ -318,6 +335,19 @@ namespace Playback_Changer.Controllers
             {
                 return _versionInfo.ToString();
             }
+        }
+
+        public delegate void NoUpdateAvailableEventHandler(object sender, NoUpdateAvailableEventArgs e);
+        public event NoUpdateAvailableEventHandler NoUpdateAvailable;
+        protected virtual void OnRaiseNoUpdateAvailable(NoUpdateAvailableEventArgs e)
+        {
+            NoUpdateAvailable?.Invoke(this, e);
+        }
+
+        public class NoUpdateAvailableEventArgs : EventArgs
+        {
+            public NoUpdateAvailableEventArgs()
+            { }
         }
 
 

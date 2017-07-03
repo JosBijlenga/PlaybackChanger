@@ -34,6 +34,8 @@
             this.borderPanelDevicesInner = new PlaybackChanger_Installer.Controls.BorderPanel();
             this.borderPanelDevicesList = new PlaybackChanger_Installer.Controls.BorderPanel();
             this.borderPanelSettings = new PlaybackChanger_Installer.Controls.BorderPanel();
+            this.labelCheckUpdates = new System.Windows.Forms.Label();
+            this.bmToggleSwitchCheckUpdates = new bmControlLibrary.bmToggleSwitch();
             this.flatButtonUnbindActivationKey = new PlaybackChanger_Installer.Controls.FlatButton();
             this.label1 = new System.Windows.Forms.Label();
             this.flatButtonActivationKey = new PlaybackChanger_Installer.Controls.FlatButton();
@@ -61,8 +63,6 @@
             this.labelLegendIgnored = new System.Windows.Forms.Label();
             this.borderPanelColorLegendIgnored = new PlaybackChanger_Installer.Controls.BorderPanel();
             this.borderPanelMain = new PlaybackChanger_Installer.Controls.BorderPanel();
-            this.labelCheckUpdates = new System.Windows.Forms.Label();
-            this.bmToggleSwitchCheckUpdates = new bmControlLibrary.bmToggleSwitch();
             this.borderPanelDevices.SuspendLayout();
             this.borderPanelDevicesInner.SuspendLayout();
             this.borderPanelSettings.SuspendLayout();
@@ -174,6 +174,28 @@
             this.borderPanelSettings.TabIndex = 1;
             this.borderPanelSettings.TopBorder = false;
             this.borderPanelSettings.TopBorderWidth = 1;
+            // 
+            // labelCheckUpdates
+            // 
+            this.labelCheckUpdates.AutoSize = true;
+            this.labelCheckUpdates.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelCheckUpdates.Location = new System.Drawing.Point(15, 201);
+            this.labelCheckUpdates.Margin = new System.Windows.Forms.Padding(18, 18, 4, 0);
+            this.labelCheckUpdates.Name = "labelCheckUpdates";
+            this.labelCheckUpdates.Size = new System.Drawing.Size(134, 40);
+            this.labelCheckUpdates.TabIndex = 13;
+            this.labelCheckUpdates.Text = "Automatically check\r\nfor updates";
+            // 
+            // bmToggleSwitchCheckUpdates
+            // 
+            this.bmToggleSwitchCheckUpdates.ButtonColor = System.Drawing.Color.Empty;
+            this.bmToggleSwitchCheckUpdates.Location = new System.Drawing.Point(22, 243);
+            this.bmToggleSwitchCheckUpdates.Name = "bmToggleSwitchCheckUpdates";
+            this.bmToggleSwitchCheckUpdates.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bmToggleSwitchCheckUpdates.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bmToggleSwitchCheckUpdates.Size = new System.Drawing.Size(50, 19);
+            this.bmToggleSwitchCheckUpdates.TabIndex = 12;
+            this.bmToggleSwitchCheckUpdates.CheckedChanged += new bmControlLibrary.bmToggleSwitch.CheckedChangedDelegate(this.bmToggleSwitchCheckUpdates_CheckedChanged);
             // 
             // flatButtonUnbindActivationKey
             // 
@@ -594,28 +616,6 @@
             this.borderPanelMain.TabIndex = 3;
             this.borderPanelMain.TopBorder = false;
             this.borderPanelMain.TopBorderWidth = 1;
-            // 
-            // labelCheckUpdates
-            // 
-            this.labelCheckUpdates.AutoSize = true;
-            this.labelCheckUpdates.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelCheckUpdates.Location = new System.Drawing.Point(15, 201);
-            this.labelCheckUpdates.Margin = new System.Windows.Forms.Padding(18, 18, 4, 0);
-            this.labelCheckUpdates.Name = "labelCheckUpdates";
-            this.labelCheckUpdates.Size = new System.Drawing.Size(121, 20);
-            this.labelCheckUpdates.TabIndex = 13;
-            this.labelCheckUpdates.Text = "Check for updates";
-            // 
-            // bmToggleSwitchCheckUpdates
-            // 
-            this.bmToggleSwitchCheckUpdates.ButtonColor = System.Drawing.Color.Empty;
-            this.bmToggleSwitchCheckUpdates.Location = new System.Drawing.Point(22, 223);
-            this.bmToggleSwitchCheckUpdates.Name = "bmToggleSwitchCheckUpdates";
-            this.bmToggleSwitchCheckUpdates.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bmToggleSwitchCheckUpdates.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bmToggleSwitchCheckUpdates.Size = new System.Drawing.Size(50, 19);
-            this.bmToggleSwitchCheckUpdates.TabIndex = 12;
-            this.bmToggleSwitchCheckUpdates.CheckedChanged += new bmControlLibrary.bmToggleSwitch.CheckedChangedDelegate(this.bmToggleSwitchCheckUpdates_CheckedChanged);
             // 
             // SettingsForm
             // 

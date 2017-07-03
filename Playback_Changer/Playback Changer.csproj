@@ -200,6 +200,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\frown.png" />
+    <None Include="Resources\UpdateCheck.png" />
     <None Include="Resources\warning.png" />
     <None Include="Resources\Ring.gif" />
     <None Include="Resources\update_install.png" />

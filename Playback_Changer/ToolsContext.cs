@@ -62,6 +62,11 @@ namespace Playback_Changer
             _view.ShowWarning();
         }
 
+        private void _updateController_NoUpdateAvailable(object sender, UpdateController.NoUpdateAvailableEventArgs e)
+        {
+            _view.ShowNoUpdate();
+        }
+
         private void InitializeComponents()
         {
             DeviceController = new DeviceController();
@@ -80,6 +85,7 @@ namespace Playback_Changer
             _updateController.UpdateAvailable += UpdateController_UpdateAvailable;
             _updateController.InstallAvailable += _updateController_InstallAvailable;
             _updateController.UpdateFailure += _updateController_UpdateFailure;
+            _updateController.NoUpdateAvailable += _updateController_NoUpdateAvailable;
 
             //
             // ContextMenuStripOpen

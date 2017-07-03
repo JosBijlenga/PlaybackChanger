@@ -46,6 +46,8 @@ namespace Playback_Changer.Forms
         {
             InitializeComponent();
 
+            buttonUpdate.Tag = new VersionTag(null, string.Empty, Enums.Constants.UpdateType.check);
+
             _context = context;
 
             SetStyle(ControlStyles.UserPaint, true);
@@ -166,7 +168,35 @@ namespace Playback_Changer.Forms
                 buttonUpdate.Tag = new VersionTag(versionInfo.Version, versionInfo.Url, Enums.Constants.UpdateType.download);
                 toolTip.SetToolTip(buttonUpdate, string.Format("New version {0} is available for download", versionInfo.Version));
                 buttonUpdate.Visible = true;
-                pictureBoxUpdateSpinner.Visible = false;
+                pictureBoxUpdate.Visible = false;
+            }
+        }
+
+        delegate void ShowNoUpdateDownloadDelegate();
+        public void ShowNoUpdate()
+        {
+            if (this.buttonUpdate.InvokeRequired)
+            {
+                var d = new ShowNoUpdateDownloadDelegate(ShowNoUpdate);
+                this.Invoke(d, null);
+            }
+            else
+            {
+                pictureBoxUpdate.Image = Properties.Resources.frown;
+                toolTip.SetToolTip(pictureBoxUpdate, "No updates available");
+                // Hide frown after 10 seconds
+                Timer t = new Timer()
+                {
+                    Interval = 1000 * 10 // 10 seconds
+                };
+                t.Tick += delegate
+                {
+                    pictureBoxUpdate.Visible = false;
+                    buttonUpdate.Visible = true;
+                    t.Stop();
+                    t.Dispose();
+                };
+                t.Start();
             }
         }
 
@@ -189,7 +219,7 @@ namespace Playback_Changer.Forms
                 buttonUpdate.Tag = new VersionTag(versionInfo.Version, versionInfo.Url, Enums.Constants.UpdateType.install);
                 toolTip.SetToolTip(buttonUpdate, string.Format("Downloaded version {0} is ready to be installed", versionInfo.Version));
                 buttonUpdate.Visible = true;
-                pictureBoxUpdateSpinner.Visible = false;
+                pictureBoxUpdate.Visible = false;
             }
         }
 
@@ -219,7 +249,7 @@ namespace Playback_Changer.Forms
                     toolTip.SetToolTip(buttonUpdate, "Something went wrong. Click to try again");
                 }
                 buttonUpdate.Visible = true;
-                pictureBoxUpdateSpinner.Visible = false;
+                pictureBoxUpdate.Visible = false;
             }
         }
 
@@ -323,14 +353,27 @@ namespace Playback_Changer.Forms
                 case Enums.Constants.UpdateType.installRetry:
                     InstallClicked(tag);
                     break;
+                case Enums.Constants.UpdateType.check:
+                    CheckClicked();
+                    break;
                 default:
                     break;
             }
         }
+
+        private void CheckClicked()
+        {
+            pictureBoxUpdate.Visible = true;
+            buttonUpdate.Visible = false;
+            // check for updates.
+            _context.UpdateController.CheckForUpdate(true);
+        }
+
         private void DownloadClicked(VersionTag tag)
         {
-            toolTip.SetToolTip(pictureBoxUpdateSpinner, "Downloading");
-            pictureBoxUpdateSpinner.Visible = true;
+            toolTip.SetToolTip(pictureBoxUpdate, "Downloading");
+            pictureBoxUpdate.Image = Properties.Resources.Ring;
+            pictureBoxUpdate.Visible = true;
             buttonUpdate.Visible = false;
             // download the update.
             _context.UpdateController.DownloadUpdate(tag);
@@ -339,14 +382,15 @@ namespace Playback_Changer.Forms
         private BackgroundWorker worker;
         private void InstallClicked(VersionTag tag)
         {
-            toolTip.SetToolTip(pictureBoxUpdateSpinner, "Installing");
-            pictureBoxUpdateSpinner.Visible = true;
+            toolTip.SetToolTip(pictureBoxUpdate, "Installing");
+            pictureBoxUpdate.Image = Properties.Resources.Ring;
+            pictureBoxUpdate.Visible = true;
             buttonUpdate.Visible = false;
             // install the update.
             worker = new BackgroundWorker();
             worker.RunWorkerCompleted += delegate
             {
-                pictureBoxUpdateSpinner.Visible = false;
+                pictureBoxUpdate.Visible = false;
 
                 var installLocation = PlaybackChanger_Installer.RegHelper.GetRegInstallPath();
                 if (!Directory.Exists(installLocation))
