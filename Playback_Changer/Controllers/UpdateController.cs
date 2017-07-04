@@ -14,7 +14,7 @@ namespace Playback_Changer.Controllers
     public class UpdateController
     {
         private Timer _updateCheckTimer = null;
-        private const string LATEST_VERSION_URL = @"https://github.com/JosBijlenga/PlaybackChanger/tree/feature/Updater/Versions/Latest-version.txt";
+        private const string LATEST_VERSION_URL = @"https://raw.githubusercontent.com/JosBijlenga/PlaybackChanger/feature/Updater/Versions/Latest-version.txt";
         private bool _checkingUpdate = false;
         private bool _downloadingUpdate = false;
 
