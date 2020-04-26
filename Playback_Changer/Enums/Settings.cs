@@ -9,6 +9,7 @@
         IgnoredDevices = 3,
         ActivateKey = 4,
         FirstLaunch = 5,
-        CheckUpdate = 6
+        CheckUpdate = 6,
+        ShowConfirmationDeviceChanged = 7
     }
 }

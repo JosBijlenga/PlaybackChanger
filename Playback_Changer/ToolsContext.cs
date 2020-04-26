@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using Playback_Changer.Controllers;
+using Playback_Changer.Eo;
 using Playback_Changer.Forms;
 using Playback_Changer.Helpers;
 
@@ -11,7 +12,6 @@ namespace Playback_Changer
         private KeyboardHook _keyboardHook;
         private QuickviewForm _view;
         public SettingsForm SettingsForm;
-        private UpdateController _updateController;
 
         private NotifyIcon TrayIcon;
         private ContextMenuStrip TrayIconMenuStrip;
@@ -20,10 +20,7 @@ namespace Playback_Changer
         private ToolStripMenuItem ContextMenuStripClose;
 
         public DeviceController DeviceController;
-        public UpdateController UpdateController
-        {
-            get { return _updateController; }
-        }
+        public UpdateController UpdateController { get; private set; }
 
         public PlaybackChangerContext(bool showQuickview)
         {
@@ -77,11 +74,11 @@ namespace Playback_Changer
             ContextMenuStripSettings = new ToolStripMenuItem();
             ContextMenuStripClose = new ToolStripMenuItem();
             TrayIcon = new NotifyIcon();
-            _updateController = new UpdateController();
-            _updateController.UpdateAvailable += UpdateController_UpdateAvailable;
-            _updateController.InstallAvailable += _updateController_InstallAvailable;
-            _updateController.UpdateFailure += _updateController_UpdateFailure;
-            _updateController.NoUpdateAvailable += _updateController_NoUpdateAvailable;
+            UpdateController = new UpdateController();
+            UpdateController.UpdateAvailable += UpdateController_UpdateAvailable;
+            UpdateController.InstallAvailable += _updateController_InstallAvailable;
+            UpdateController.UpdateFailure += _updateController_UpdateFailure;
+            UpdateController.NoUpdateAvailable += _updateController_NoUpdateAvailable;
 
             //
             // ContextMenuStripOpen
@@ -182,7 +179,14 @@ namespace Playback_Changer
 
         private void _keyboardHook_HotkeyPressed(KeyboardHook.HotkeyEventArgs e)
         {
-            DeviceController.ActivateDeviceByHotkey(e.Key);
+            var changedToDevice = DeviceController.ActivateDeviceByHotkey(e.Key);
+
+            // Depending on settings, also display confirmation
+            if (changedToDevice != null
+                && SettingsManager.Settings.ShowConfirmationDeviceChangedThroughHotkey)
+            {
+                PlaybackChangedForm.ShowForDevice(changedToDevice);
+            }
         }
 
         private void _keyboardHook_Activated(KeyboardHook.ActivatedEventArgs e)

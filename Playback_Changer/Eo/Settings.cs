@@ -94,10 +94,7 @@ namespace Playback_Changer.Eo
         private System.Windows.Forms.Keys _activateKey = System.Windows.Forms.Keys.Q;
         public System.Windows.Forms.Keys ActivateKey
         {
-            get
-            {
-                return _activateKey;
-            }
+            get => _activateKey;
             set
             {
                 bool changed = (_activateKey != value);
@@ -116,10 +113,7 @@ namespace Playback_Changer.Eo
         private bool _firstLaunch = true;
         public bool FirstLaunch
         {
-            get
-            {
-                return _firstLaunch;
-            }
+            get => _firstLaunch;
             set
             {
                 bool changed = (_firstLaunch != value);
@@ -138,10 +132,7 @@ namespace Playback_Changer.Eo
         private bool _checkUpdate = true;
         public bool CheckUpdate
         {
-            get
-            {
-                return _checkUpdate;
-            }
+            get => _checkUpdate;
             set
             {
                 bool changed = (_checkUpdate != value);
@@ -156,7 +147,26 @@ namespace Playback_Changer.Eo
                 }
             }
         }
-        
+
+        private bool _showConfirmationDeviceChangedThroughHotkey = true;
+
+        public bool ShowConfirmationDeviceChangedThroughHotkey
+        {
+            get => _showConfirmationDeviceChangedThroughHotkey;
+            set
+            {
+                bool changed = (_showConfirmationDeviceChangedThroughHotkey != value);
+                _showConfirmationDeviceChangedThroughHotkey = value;
+
+                if (changed)
+                {
+                    OnRaiseSettingChanged(new SettingChangedEventArgs(
+                        Enums.Settings.ShowConfirmationDeviceChanged,
+                        value
+                    ));
+                }
+            }
+        }
 
         public delegate void SettingChangedEventHandler(object sender, SettingChangedEventArgs e);
         public event SettingChangedEventHandler SettingChanged;
@@ -178,16 +188,14 @@ namespace Playback_Changer.Eo
 
         public class SettingChangedEventArgs : System.EventArgs
         {
-            private Enums.Settings _settings;
-            public Enums.Settings Settings { get { return _settings; } }
+            public Enums.Settings Settings { get; }
 
-            private object _value;
-            public object Value { get { return _value; } }
+            public object Value { get; }
 
             public SettingChangedEventArgs(Enums.Settings settings, object value)
             {
-                _settings = settings;
-                _value = value;
+                Settings = settings;
+                Value = value;
             }
         }
     }

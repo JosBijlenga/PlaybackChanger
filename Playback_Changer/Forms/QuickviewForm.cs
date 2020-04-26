@@ -17,28 +17,15 @@ namespace Playback_Changer.Forms
 
         private Color _deviceControlBackColor;
         private Color _deviceControlHoverColor;
+        
+        private readonly Size mySize = new Size(360, 280);
 
-        private const int OFFSET = 12;
-        private const int HEIGHT = 280;
-        private const int WIDTH = 360;
-
-        private PlaybackChangerContext _context;
+        private readonly PlaybackChangerContext _context;
 
         /// <summary>
         /// Flag if the window may be closed.
         /// </summary>
-        private bool _mayClose = false;
-        public bool MayClose
-        {
-            get
-            {
-                return _mayClose;
-            }
-            set
-            {
-                _mayClose = value;
-            }
-        }
+        public bool MayClose { get; set; } = false;
 
         public QuickviewForm(PlaybackChangerContext context)
         {
@@ -52,7 +39,7 @@ namespace Playback_Changer.Forms
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
 
-            this.Location = SetQuickviewLocation();
+            this.Location = FormLocationHelper.GetLocation(mySize);
             buttonSettings.FlatAppearance.BorderColor = Color.FromArgb(0, 255, 255, 255);
 
             SetColors();
@@ -60,34 +47,7 @@ namespace Playback_Changer.Forms
             PopulateDevices(devices);
         }
 
-        private Point SetQuickviewLocation()
-        {
-            int x = 0;
-            int y = 0;
-            Taskbar taskbar = TaskbarHelper.Taskbar;
 
-            switch (TaskbarHelper.Taskbar.Position)
-            {
-                case TaskbarPosition.Left:
-                    x = Screen.PrimaryScreen.WorkingArea.Left + OFFSET;
-                    y = Screen.PrimaryScreen.WorkingArea.Bottom - HEIGHT;
-                    break;
-                case TaskbarPosition.Right:
-                    x = Screen.PrimaryScreen.WorkingArea.Right - WIDTH - OFFSET;
-                    y = Screen.PrimaryScreen.WorkingArea.Bottom - Height;
-                    break;
-                case TaskbarPosition.Top:
-                    x = Screen.PrimaryScreen.WorkingArea.Right - WIDTH;
-                    y = Screen.PrimaryScreen.WorkingArea.Top + OFFSET;
-                    break;
-                case TaskbarPosition.Bottom:
-                default:
-                    x = Screen.PrimaryScreen.WorkingArea.Right - WIDTH;
-                    y = Screen.PrimaryScreen.WorkingArea.Bottom - HEIGHT - OFFSET;
-                    break;
-            }
-            return new Point(x, y);
-        }
 
         /// <summary>
         /// Populate the devicePanel with deviceControls.
@@ -102,14 +62,15 @@ namespace Playback_Changer.Forms
                 // Backwards loop to show devices in the right order
                 for (int i = devices.Length - 1; i >= 0; i--)
                 {
-                    if (devices[i].State == Eo.DeviceState.Active && !devices[i].Ignored)
+                    if (devices[i].State == DeviceState.Active && !devices[i].Ignored)
                     {
-                        devices[i].AddToControl(panelDevices, new Eo.VisualDeviceStyling()
+                        devices[i].AddToControl(panelDevices, new VisualDeviceStyling
                         {
                             BackColor = _deviceControlBackColor,
                             ForeColor = Color.White,
                             ShowBorder = false,
-                            ShowPopover = false
+                            ShowPopover = false,
+                            
                         });
                     }
                 }
@@ -127,12 +88,11 @@ namespace Playback_Changer.Forms
         /// <returns>Returns if the colors have changed.</returns>
         private bool SetColors()
         {
-            bool changed = false;
             // This
             _backColor = ImmersiveColorHelper.GetColor(ImmersiveColors.ImmersiveStartBackground);
             _borderColor = ImmersiveColorHelper.GetColor(ImmersiveColors.ImmersiveControlDarkToggleTrackBackgroundDisabled);
             _foreColor = ImmersiveColorHelper.GetColor(ImmersiveColors.ImmersiveStartPrimaryText);
-            changed = (_backColor != this.BackColor);
+            var changed = _backColor != this.BackColor;
             this.BackColor = _backColor;
             borderPanelMain.BorderColor = _borderColor;
             this.ForeColor = _foreColor;
@@ -148,7 +108,7 @@ namespace Playback_Changer.Forms
         }
 
         // Delegate required to make access to ShowUpdateDownload cross-thread supported
-        delegate void ShowUpdateDownloadDelegate(Eo.VersionInfo versionInfo);
+        delegate void ShowUpdateDownloadDelegate(VersionInfo versionInfo);
         /// <summary>
         /// Notify the user that an update is available for download.
         /// </summary>
@@ -158,7 +118,7 @@ namespace Playback_Changer.Forms
             if (this.buttonUpdate.InvokeRequired)
             {
                 var d = new ShowUpdateDownloadDelegate(ShowUpdateDownload);
-                this.Invoke(d, new object[] { versionInfo });
+                this.Invoke(d, versionInfo);
             }
             else
             {
@@ -209,13 +169,13 @@ namespace Playback_Changer.Forms
             if (this.buttonUpdate.InvokeRequired)
             {
                 var d = new ShowUpdateInstallDelegate(ShowUpdateInstall);
-                this.Invoke(d, new object[] { versionInfo });
+                this.Invoke(d, versionInfo);
             }
             else
             {
                 buttonUpdate.BackgroundImage = Properties.Resources.install_small;
                 buttonUpdate.Tag = new VersionTag(versionInfo.Version, versionInfo.Url, Enums.Constants.UpdateType.install);
-                toolTip.SetToolTip(buttonUpdate, string.Format("Downloaded version {0} is ready to be installed", versionInfo.Version));
+                toolTip.SetToolTip(buttonUpdate, $"Downloaded version {versionInfo.Version} is ready to be installed");
                 buttonUpdate.Visible = true;
                 pictureBoxUpdate.Visible = false;
             }
@@ -259,7 +219,7 @@ namespace Playback_Changer.Forms
         /// </summary>
         private void View_Activated(object sender, EventArgs e)
         {
-            Timer t = new Timer()
+            var t = new Timer
             {
                 Interval = 250
             };
@@ -271,7 +231,10 @@ namespace Playback_Changer.Forms
                 _context.DeviceController.RefreshDevices();
                 PopulateDevices(_context.DeviceController.Devices);
             };
-            this.Location = SetQuickviewLocation();
+            this.StartPosition = FormStartPosition.Manual;
+            Point location = FormLocationHelper.GetLocation(mySize);
+            this.Location = location;
+                
             SetColors();
             t.Start();
         }

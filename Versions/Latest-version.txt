@@ -1,1 +1,1 @@
-1.0.0.4 https://github.com/JosBijlenga/PlaybackChanger/raw/master/Versions/1.0.0.4.7z
+1.1.0.0 https://github.com/JosBijlenga/PlaybackChanger/raw/master/Versions/1.1.0.0.7z

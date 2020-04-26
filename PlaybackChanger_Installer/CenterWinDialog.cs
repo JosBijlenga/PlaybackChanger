@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 namespace PlaybackChanger_Installer
 {
     // From: http://stackoverflow.com/questions/2576156/winforms-how-can-i-make-messagebox-appear-centered-on-mainform
-    class CenterWinDialog : IDisposable
+    internal class CenterWinDialog : IDisposable
     {
         private int mTries = 0;
         private Form mOwner;

@@ -17,6 +17,9 @@ Please report by creating an issue and describing the issue as detailed as possi
 
 ---
 ### Changelog
+#### 1.1.0.0
+**Confirmation after switching to a device by hotkey**
+
 #### 1.0.0.4
 **Updater**
  - Updates can now be downloaded from within the application, either automatically or manually.
@@ -24,7 +27,7 @@ Please report by creating an issue and describing the issue as detailed as possi
 **Tooltips in Quickview window for:**
  - Settings
  - New update available
-  #### 1.0.0.3
+#### 1.0.0.3
 **Fixed bugs**
  - Solved issue [#2][iss2]. Application will now always be activated by hotkey.
 

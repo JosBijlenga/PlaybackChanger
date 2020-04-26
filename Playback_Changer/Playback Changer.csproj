@@ -140,9 +140,16 @@
     <Compile Include="Eo\IDevice.cs" />
     <Compile Include="Controllers\DeviceController.cs" />
     <Compile Include="Eo\VisualDeviceStyling.cs" />
+    <Compile Include="Forms\PlaybackChangedForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PlaybackChangedForm.Designer.cs">
+      <DependentUpon>PlaybackChangedForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Helpers\ControlHelper.cs" />
     <Compile Include="Helpers\ExceptionHelper.cs" />
+    <Compile Include="Helpers\FormLocationHelper.cs" />
     <Compile Include="Helpers\KeyHelper.cs" />
     <Compile Include="Forms\PressKeyForm.cs">
       <SubType>Form</SubType>
@@ -180,6 +187,9 @@
     </Compile>
     <EmbeddedResource Include="Eo\VisualDevice.resx">
       <DependentUpon>VisualDevice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PlaybackChangedForm.resx">
+      <DependentUpon>PlaybackChangedForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\PressKeyForm.resx">
       <DependentUpon>PressKeyForm.cs</DependentUpon>

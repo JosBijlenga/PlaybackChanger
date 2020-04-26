@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using Playback_Changer.Helpers;
 using System.Collections.Generic;
+using Playback_Changer.Eo;
 using static Playback_Changer.Eo.VisualDevice;
 
 namespace Playback_Changer.Controllers
@@ -37,12 +38,21 @@ namespace Playback_Changer.Controllers
 
         #region Publics
 
-        public void ActivateDeviceByHotkey(Keys key)
+        public VisualDevice ActivateDeviceByHotkey(Keys key)
         {
             foreach (var device in Devices)
+            {
                 if (device.Hotkey == key && !device.Default)
+                {
                     if (DeviceHelper.DefaultDeviceByIndex(device.Index))
+                    {
                         device.Default = true;
+                        return device;
+                    }
+                }
+            }
+
+            return null;
         }
 
         public void RefreshDevices()

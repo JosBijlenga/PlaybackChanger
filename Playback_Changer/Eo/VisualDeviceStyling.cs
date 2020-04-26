@@ -11,7 +11,7 @@ namespace Playback_Changer.Eo
 
         public static VisualDeviceStyling GetSettingStyling()
         {
-            return new VisualDeviceStyling()
+            return new VisualDeviceStyling
             {
                 BackColor = Color.White,
                 ForeColor = Color.FromArgb(80, 80, 80),
@@ -20,5 +20,4 @@ namespace Playback_Changer.Eo
             };
         }
     }
-
 }

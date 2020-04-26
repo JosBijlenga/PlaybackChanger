@@ -63,6 +63,8 @@
             this.labelLegendIgnored = new System.Windows.Forms.Label();
             this.borderPanelColorLegendIgnored = new PlaybackChanger_Installer.Controls.BorderPanel();
             this.borderPanelMain = new PlaybackChanger_Installer.Controls.BorderPanel();
+            this.labelConfirmationDescription = new System.Windows.Forms.Label();
+            this.bmToggleSwitchConfirmForHotkey = new bmControlLibrary.bmToggleSwitch();
             this.borderPanelDevices.SuspendLayout();
             this.borderPanelDevicesInner.SuspendLayout();
             this.borderPanelSettings.SuspendLayout();
@@ -155,6 +157,8 @@
             this.borderPanelSettings.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
             this.borderPanelSettings.BottomBorder = false;
             this.borderPanelSettings.BottomBorderWidth = 1;
+            this.borderPanelSettings.Controls.Add(this.labelConfirmationDescription);
+            this.borderPanelSettings.Controls.Add(this.bmToggleSwitchConfirmForHotkey);
             this.borderPanelSettings.Controls.Add(this.labelCheckUpdates);
             this.borderPanelSettings.Controls.Add(this.bmToggleSwitchCheckUpdates);
             this.borderPanelSettings.Controls.Add(this.flatButtonUnbindActivationKey);
@@ -617,6 +621,27 @@
             this.borderPanelMain.TopBorder = false;
             this.borderPanelMain.TopBorderWidth = 1;
             // 
+            // labelConfirmationDescription
+            // 
+            this.labelConfirmationDescription.Font = new System.Drawing.Font("Arial Narrow", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelConfirmationDescription.Location = new System.Drawing.Point(15, 283);
+            this.labelConfirmationDescription.Margin = new System.Windows.Forms.Padding(18, 18, 4, 0);
+            this.labelConfirmationDescription.Name = "labelConfirmationDescription";
+            this.labelConfirmationDescription.Size = new System.Drawing.Size(134, 40);
+            this.labelConfirmationDescription.TabIndex = 15;
+            this.labelConfirmationDescription.Text = "Confirm playback switch by hotkey";
+            // 
+            // bmToggleSwitchConfirmForHotkey
+            // 
+            this.bmToggleSwitchConfirmForHotkey.ButtonColor = System.Drawing.Color.Empty;
+            this.bmToggleSwitchConfirmForHotkey.Location = new System.Drawing.Point(22, 325);
+            this.bmToggleSwitchConfirmForHotkey.Name = "bmToggleSwitchConfirmForHotkey";
+            this.bmToggleSwitchConfirmForHotkey.OffFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bmToggleSwitchConfirmForHotkey.OnFont = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bmToggleSwitchConfirmForHotkey.Size = new System.Drawing.Size(50, 19);
+            this.bmToggleSwitchConfirmForHotkey.TabIndex = 14;
+            this.bmToggleSwitchConfirmForHotkey.CheckedChanged += new bmControlLibrary.bmToggleSwitch.CheckedChangedDelegate(this.bmToggleSwitchConfirmForHotkey_CheckedChanged);
+            // 
             // SettingsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
@@ -696,5 +721,7 @@
         private PlaybackChanger_Installer.Controls.FlatButton flatButtonUnbindActivationKey;
         private System.Windows.Forms.Label labelCheckUpdates;
         private bmControlLibrary.bmToggleSwitch bmToggleSwitchCheckUpdates;
+        private System.Windows.Forms.Label labelConfirmationDescription;
+        private bmControlLibrary.bmToggleSwitch bmToggleSwitchConfirmForHotkey;
     }
 }

@@ -9,16 +9,14 @@ namespace Playback_Changer
 
         public class DeviceEventArgs : EventArgs
         {
-            private Eo.IDevice _device;
-            public Eo.IDevice Device { get { return _device; } }
+            public Eo.IDevice Device { get; }
 
-            private bool _active;
-            public bool Active { get { return _active; } }
+            public bool Active { get; }
 
             public DeviceEventArgs(Eo.IDevice device, bool active)
             {
-                _device = device;
-                _active = active;
+                Device = device;
+                Active = active;
             }
         }
 

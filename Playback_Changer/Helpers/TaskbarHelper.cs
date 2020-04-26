@@ -6,13 +6,7 @@ namespace Playback_Changer.Helpers
 {
     public class TaskbarHelper
     {
-        public static Taskbar Taskbar
-        {
-            get
-            {
-                return new Taskbar();
-            }
-        }
+        public static Taskbar Taskbar => new Taskbar();
     }
 
     public enum TaskbarPosition
@@ -31,37 +25,23 @@ namespace Playback_Changer.Helpers
         public Rectangle Bounds
         {
             get;
-            private set;
         }
         public TaskbarPosition Position
         {
             get;
-            private set;
         }
-        public Point Location
-        {
-            get
-            {
-                return this.Bounds.Location;
-            }
-        }
-        public Size Size
-        {
-            get
-            {
-                return this.Bounds.Size;
-            }
-        }
+        public Point Location => this.Bounds.Location;
+
+        public Size Size => this.Bounds.Size;
+
         //Always returns false under Windows 7
         public bool AlwaysOnTop
         {
             get;
-            private set;
         }
         public bool AutoHide
         {
             get;
-            private set;
         }
 
         public Taskbar()

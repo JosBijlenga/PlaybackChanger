@@ -12,20 +12,15 @@ namespace Playback_Changer.Controllers
         {
             get
             {
-                if (_settings == null)
-                {
-                    var settingsFile = GetSettingsPath();
-                    if (!File.Exists(settingsFile))
-                    {
-                        _settings = WriteDefaultSettings(settingsFile);
-                    }
-                    else
-                    {
-                        _settings = ReadSettings(settingsFile);
-                    }
+                if (_settings != null)
+                    return _settings;
 
-                    BindSettingChangedEvent(_settings);
-                }
+                var settingsFile = GetSettingsPath();
+                _settings = !File.Exists(settingsFile)
+                    ? WriteDefaultSettings(settingsFile)
+                    : ReadSettings(settingsFile);
+
+                BindSettingChangedEvent(_settings);
 
                 return _settings;
             }
@@ -33,11 +28,9 @@ namespace Playback_Changer.Controllers
 
         private static string GetSettingsPath()
         {
-            string settingsPath = RegHelper.GetRegInstallPath() ?? Environment.CurrentDirectory ?? null;
+            var settingsPath = RegHelper.GetRegInstallPath() ?? Environment.CurrentDirectory ?? null;
             if (string.IsNullOrWhiteSpace(settingsPath))
-            {
                 throw new DirectoryNotFoundException("Can't find settings directory");
-            }
 
             return Path.Combine(settingsPath, "Settings.json");
         }
@@ -46,12 +39,12 @@ namespace Playback_Changer.Controllers
         {
             settings.SettingChanged += Settings_SettingChanged;
         }
+
         private static void Settings_SettingChanged(object sender, EventArgs e)
         {
             if (sender is Eo.Settings settings)
                 _settings = WriteSettings(GetSettingsPath(), settings);
         }
-
 
         private static Eo.Settings WriteDefaultSettings(string path)
         {
@@ -68,9 +61,9 @@ namespace Playback_Changer.Controllers
 
         private static Eo.Settings ReadSettings(string path)
         {
-            using (StreamReader r = new StreamReader(path))
+            using (var r = new StreamReader(path))
             {
-                string json = r.ReadToEnd();
+                var json = r.ReadToEnd();
                 return JsonConvert.DeserializeObject<Eo.Settings>(json);
             }
         }
